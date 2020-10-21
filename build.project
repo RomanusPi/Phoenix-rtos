@@ -1,0 +1,40 @@
+#
+# Shell script for building Phoenix-RTOS microdistribution
+#
+# Copyright 2018, 2019, 2020 Phoenix Systems
+# Author: Kaja Swat, Aleksander Kaminski, Pawel Pisarczyk, Lukasz Kosinski
+#
+#
+
+set -e
+
+#TARGET=armv7m4-stm32l4x6
+#TARGET=armv7m7-imxrt105x
+#TARGET=armv7m7-imxrt106x
+#TARGET=armv7m7-imxrt117x
+#TARGET=armv7a7-imx6ull
+TARGET=ia32-generic
+#TARGET=riscv64-spike
+#TARGET=riscv64-virt
+
+
+TARGET_FAMILY=`echo $TARGET | awk -F- '{ print $1 }'`
+TARGET_SUBFAMILY=$TARGET_FAMILY-`echo $TARGET | awk -F- '{ print $2 }'`
+
+. _targets/build.project.${TARGET_SUBFAMILY}
+
+#
+# Project specific build
+#
+b_build() {
+
+	b_build_target
+
+}
+
+#
+# Project specific image
+#
+b_image() {
+	b_image_target
+}
